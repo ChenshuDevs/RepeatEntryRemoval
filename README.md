@@ -1,6 +1,6 @@
 # Repeat Row Remover
 
-A Flask web app for Render that uploads CSV or Excel files, removes repeated rows by comparing row values, and shows before/after treatment metrics and previews.
+A Streamlit web app that uploads CSV or Excel files, removes repeated rows by comparing row values, and shows before/after treatment metrics and previews.
 
 ## Features
 
@@ -16,20 +16,22 @@ A Flask web app for Render that uploads CSV or Excel files, removes repeated row
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python app.py
+streamlit run app.py
 ```
 
-Open `http://127.0.0.1:5000`.
+Open the local URL printed by Streamlit, usually `http://localhost:8501`.
 
-## Render deployment
+## Streamlit Community Cloud deployment
 
 1. Push this project to GitHub.
-2. Create a new Render Web Service from the repo.
-3. Render will detect [`render.yaml`](/Users/chenshudevs/Documents/Repeat_entry_removal/render.yaml).
-4. Deploy the service.
+2. Go to [Streamlit Community Cloud](https://share.streamlit.io/).
+3. Sign in with GitHub.
+4. Click `Create app`.
+5. Select your repository and branch.
+6. Set the main file path to `app.py`.
+7. Click `Deploy`.
 
 ## Notes
 
 - `.xls` uploads are supported for reading and exported as `.xlsx` after cleanup.
 - Duplicate detection compares the full row values in order and ignores the meaning of column names.
-# RepeatEntryRemoval
