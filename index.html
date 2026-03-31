@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repeat Row Remover</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Static browser app</p>
+        <h1>Remove repeated rows from CSV and Excel files</h1>
+        <p class="lead">
+          Upload a CSV or Excel file, detect duplicate rows by full row values instead of column names,
+          then review the before-and-after results with fast visual feedback right in the browser.
+        </p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-stat">
+          <span>Runs</span>
+          <strong>Entirely in the browser</strong>
+        </div>
+        <div class="hero-stat">
+          <span>Supported formats</span>
+          <strong>CSV, XLSX, XLS</strong>
+        </div>
+        <div class="hero-stat">
+          <span>Output</span>
+          <strong>Cleaned file + treatment dashboard</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel upload-panel">
+      <div class="upload-form">
+        <label class="upload-dropzone" for="dataFile">
+          <input id="dataFile" type="file" accept=".csv,.xlsx,.xls">
+          <span class="upload-title">Choose a CSV or Excel file</span>
+          <span class="upload-subtitle">The tool keeps the first occurrence of each repeated row and removes later matches.</span>
+        </label>
+        <button id="processButton" class="primary-button" type="button">Process file</button>
+      </div>
+      <div id="messageArea" class="message-stack"></div>
+    </section>
+
+    <section id="resultsSection" class="results hidden">
+      <div class="results-header">
+        <div>
+          <p class="eyebrow">Latest result</p>
+          <h2 id="resultFilename">No file loaded</h2>
+        </div>
+        <button id="downloadButton" class="secondary-button" type="button">Download cleaned file</button>
+      </div>
+
+      <section class="metrics-grid">
+        <article class="metric-card">
+          <span>Rows before</span>
+          <strong id="rowsBefore">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Rows after</span>
+          <strong id="rowsAfter">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Duplicates removed</span>
+          <strong id="rowsRemoved">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Duplicate rate</span>
+          <strong id="duplicateRate">0%</strong>
+        </article>
+      </section>
+
+      <section class="charts-grid">
+        <article class="panel chart-card">
+          <div class="panel-heading">
+            <h3>Row count comparison</h3>
+            <p>See the change in row count before and after cleanup.</p>
+          </div>
+          <canvas id="comparisonChart"></canvas>
+        </article>
+        <article class="panel chart-card">
+          <div class="panel-heading">
+            <h3>Cleanup distribution</h3>
+            <p>Shows how many rows were kept versus removed.</p>
+          </div>
+          <canvas id="distributionChart"></canvas>
+        </article>
+      </section>
+
+      <section class="tables-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Before treatment</h3>
+            <p>First 10 rows from the uploaded file.</p>
+          </div>
+          <div id="beforeTable" class="table-wrap"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>After treatment</h3>
+            <p>First 10 rows after removing repeated rows.</p>
+          </div>
+          <div id="afterTable" class="table-wrap"></div>
+        </article>
+      </section>
+
+      <section class="panel duplicate-panel">
+        <div class="panel-heading">
+          <h3>Most repeated row patterns</h3>
+          <p>These repeated row clusters explain what was removed.</p>
+        </div>
+        <div id="duplicateGroups" class="duplicate-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="static/app.js"></script>
+</body>
+</html>
